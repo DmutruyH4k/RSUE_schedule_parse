@@ -1,5 +1,3 @@
-# To-Do:
-#   Сделать поиск расписания по группе (Пример: ИБ-321 (Факультет: 3, Курс: 2, Группа: 7)
 import requests
 from bs4 import BeautifulSoup
 from payload import url, data, headers
