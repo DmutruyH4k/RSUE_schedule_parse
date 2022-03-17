@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from payload import url, data, headers
+from config import url, data, headers, weekdays_in_nums
 
 
 def download_page():
@@ -35,9 +35,10 @@ def parse_schedule(content):
                       f'\tПреподаватель: {tutor}\n'
                       f'\tАудитория: {classroom}\n'
                       f'\tТип занятия: {lesson_type}')
-            if day[0] == 'Суббота':
-                start_week_index = i+1
-                break
+            if i < len(days)-1:
+                if weekdays_in_nums[day[0]] > weekdays_in_nums[days[i + 1][0]]:
+                    start_week_index = i + 1
+                    break
 
 
 def main():
