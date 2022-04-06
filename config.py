@@ -4,9 +4,9 @@ headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
 }
 data = {
-    "f": "3",
-    "k": "2",
-    "g": "7"
+    "f": "0",
+    "k": "0",
+    "g": "0"
 }
 weekdays_in_nums = {
     'Понедельник': 1,
@@ -15,4 +15,9 @@ weekdays_in_nums = {
     'Четверг': 4,
     'Пятница': 5,
     'Суббота': 6
+}
+group_data = {
+    "query": "getCategories",
+    "type_id": "0",
+    "kind_id": "0"
 }
