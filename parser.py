@@ -38,7 +38,7 @@ def parse_schedule(content):
             print('#' * 50, day[0], '#' * 50)
             for j in range(1, len(day)-1, 5):
                 time = day[j][:day[j].find('П')]
-                group = day[j][day[j].rfind(':')+2:] if day[j].find('П') != -1 else "обе"
+                group = day[j][day[j].rfind(':')+2:] if day[j].find('Подгруппа') != -1 else "все"
                 lesson_name = day[j + 1]
                 tutor = day[j + 2]
                 classroom = day[j + 3][day[j + 3].find('.') + 1:] if day[j + 3].count('д') == 1 else 'Дистанционно'
