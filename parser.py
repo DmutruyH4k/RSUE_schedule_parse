@@ -30,12 +30,13 @@ def parse_schedule(content):
         days.append([i for i in day.get_text().split('\n') if i != ''])
     start_week_index = 0
     for week in weeks:
-        print('~' * 50, week, '~' * 50)
+        json_test[week] = {}
         for i in range(start_week_index, len(days)):
             day = days[i]
             if day[0] == '\xa0':
+                json_test[week][day[0]] = "Сегодня пар нет"
                 continue
-            print('#' * 50, day[0], '#' * 50)
+            json_test[week][day[0]] = []
             for j in range(1, len(day)-1, 5):
                 time = day[j][:day[j].find('П')]
                 group = day[j][day[j].rfind(':')+2:] if day[j].find('Подгруппа') != -1 else "все"
@@ -43,12 +44,14 @@ def parse_schedule(content):
                 tutor = day[j + 2]
                 classroom = day[j + 3][day[j + 3].find('.') + 1:] if day[j + 3].count('д') == 1 else 'Дистанционно'
                 lesson_type = day[j + 4]
-                print(f'{time}\n'
-                      f'\tДисциплина: {lesson_name}\n'
-                      f'\tПодгруппа: {group}\n'
-                      f'\tПреподаватель: {tutor}\n'
-                      f'\tАудитория: {classroom}\n'
-                      f'\tТип занятия: {lesson_type}')
+                json_test[week][day[0]].append({
+                    "Время проведения": time,
+                    "Подгруппа": group,
+                    "Дисциплина": lesson_name,
+                    "Преподаватель": tutor,
+                    "Аудитория": classroom,
+                    "Формат занятия": lesson_type
+                })
             if i < len(days)-1:
                 next_day = 1
                 while days[i+next_day][0] == '\xa0':
@@ -59,10 +62,13 @@ def parse_schedule(content):
 
 
 def main():
-    group_to_find = input("Введите вашу группу: ")
-    find_group(group_to_find)
+    group = input("Введите вашу группу: ")
+    find_group(group)
     schedule = download_page()
     parse_schedule(schedule)
+    with open(f"{group}.json", "w") as out:
+        json.dump(json_test, out)
+    print("Парсинг выполнен успешно!")
 
 
 if __name__ == '__main__':

@@ -21,3 +21,5 @@ group_data = {
     "type_id": "0",
     "kind_id": "0"
 }
+
+json_test = {}
